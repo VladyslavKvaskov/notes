@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Notes App</title>
+    <meta name="description" content="This is a very simple PWA(Progressive Web App) for taking notes.">
+    <meta name="keywords" content="Notes, PWA, App">
+
+    <meta name="author" content="Vlad Kvaskov">
+    <meta name="theme-color" content="#fff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="icons/pwa64.png" type="image/x-icon">
+    <link rel="icon" href="icons/notes-64.png" sizes="64x64">
+    <link rel="icon" href="icons/notes-192.png" sizes="192x192">
+    <link rel="icon" href="icons/notes-512.png" sizes="512x512">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Web Developer">
+    <link rel="apple-touch-icon" href="icons/notes-64-ios.png">
+
+    <meta name="msapplication-TileImage" href="icons/notes-192.png">
+    <meta name="msapplication-TileColor" content="blueviolet">
+    <style>
+      #app_message{
+        width:100%;
+        z-index: 16000;
+        position: fixed;
+        bottom: 0;
+        left: -100vw;
+        transition: left 1s;
+        color:#fff;
+        font-family: sans-serif;
+        padding: 30px;
+        box-sizing: border-box;
+        font-size: 20px;
+      }
+      #app_message_2{
+        width:100%;
+        z-index: 15000;
+        position: fixed;
+        bottom: 0;
+        left: -100vw;
+        transition: left 1s;
+        color:#fff;
+        font-family: sans-serif;
+        padding: 30px;
+        box-sizing: border-box;
+        font-size: 20px;
+      }
+      button{
+        width:100%;
+        position:absolute;
+        left:0;
+        bottom:0;
+        font-size:2vw;
+        border:none;
+        outline:none;
+        cursor:pointer;
+        height:48px;
+      }
+      button:focus,button:hover{
+        text-decoration:underline;
+      }
+      body,html{
+        margin: 0;
+        overflow: hidden;
+        width:100vw;
+        height: 100%;
+      }
+      .lc{
+        width:100vw;
+        height: 100%;
+        overflow:auto;
+        padding-top:50px;
+        -webkit-overflow-scrolling: touch;
+      }
+      *{
+        font-family:sans-serif;
+      }
+      span{width:100%;display:block;}
+      form{
+        position:relative;
+        margin:0 auto 100px auto;
+        box-sizing:border-box;
+        display:flex;
+        flex-wrap:wrap;
+
+        width: 23vw;
+        height: 23vw;
+        box-sizing:border-box;
+      }
+      input{
+        width: 100%;
+        font-size:2vw;
+        box-sizing:border-box;
+        background:#CAF4B9;
+        cursor:pointer;
+        padding:0.7vw;
+        outline:none;
+        transition:0.5s;
+        font-weight:bold;
+        border:none;
+      -webkit-appearance: button;    border-radius: 0;
+      }
+      input:hover, input:focus{
+        text-decoration:underline;
+      }
+      textarea{
+        width:100%;
+        font-size:2vw;
+        height: 20vw;
+        box-sizing:border-box;
+        resize:none;
+        margin:0;
+        outline:none;
+        padding:15px;
+        background:#F7E999;
+        border:none;
+        -webkit-appearance: textarea;
+        border-radius: 0;
+      }
+      label{
+        font-size:23px;
+        width:100%;
+        display:block;
+        color:#34a853;
+        font-weight:bold;
+        padding:7px;
+      }
+      #notesBlock{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;margin-bottom:300px;}
+      .note:hover{transform:rotate(0deg) !important;}
+      .note{
+        font-size:2vw;
+        background: #f0e68c;
+        width: 23vw;
+        height: 23vw;
+        padding: 1vw;
+        display: block;
+        box-sizing:border-box;
+        box-shadow: 8px 8px 6px -6px #595959, -1px 0 3px -2px #595959;
+        word-break:break-all;
+        transition: 1s;
+      }
+      .note, textarea{
+        font-family: serif;
+      }
+
+      ::-webkit-scrollbar-thumb{
+        background: #fff;
+        border-radius: 30px;
+        -webkit-box-shadow: inset -1px 0 #4285f4,inset 1px 0 #4285f4,inset 1px 1px #4285f4,inset -1px -1px #4285f4,inset -1px 1px #4285f4,inset 1px -1px #4285f4,inset 0 -1px #4285f4,inset 0 1px #4285f4;
+        box-shadow: inset -1px 0 #4285f4,inset 1px 0 #4285f4,inset 1px 1px #4285f4,inset -1px -1px #4285f4,inset -1px 1px #4285f4,inset 1px -1px #4285f4,inset 0 -1px #4285f4,inset 0 1px #4285f4;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #4285f4;
+      }
+
+      @media screen and (max-width: 950px){
+        .note, form{
+          width:30vw;
+          height:30vw;
+        }
+        button,.note,input,textarea{
+          font-size:2.5vw;
+        }
+        textarea{
+          height:26vw;
+        }
+      }
+
+      @media screen and (max-width: 750px){
+        .note, form{
+          width:40vw;
+          height:40vw;
+        }
+        button,.note,input,textarea{
+          font-size:3.5vw;
+        }
+        textarea{
+          height:34vw;
+        }
+      }
+
+      @media screen and (max-width: 550px){
+        .note, form{
+          width:60vw;
+          height:60vw;
+        }
+        button,.note,input,textarea{
+          font-size:5vw;
+        }
+        textarea{
+          height:54vw;
+        }
+      }
+      textarea::-webkit-scrollbar{
+        width:0;
+      }
+    </style>
+  </head>
+  <body>
+  <div class="lc" id="lc">
+    <form id="formPlaylist">
+      <label for="note">Note:</label>
+      <textarea id="note" rows="8" maxlength="65"></textarea>
+      <input type="button" id="addNote" value="Add Note">
+    </form>
+
+    <div id="notesBlock"></div>
+  </div>
+  <div id="app_message"></div>
+  <div id="app_message_2"></div>
+  <script>
+    "use strict";
+    const colorsArr=['#F7E999','#b9dcf4','#FFBDA3','#CAF4B9'];
+    let lc_counter=0;
+    let color;
+    let scrollTopto;
+    let degrees;
+    let TimeOut;
+    let touch = false;
+    let note_data;
+
+    window.addEventListener('DOMContentLoaded',function(){
+      if(localStorage.getItem('counter')){
+        lc_counter = localStorage.getItem('counter');
+      }
+      setNotes();
+      if(localStorage.getItem('lcPageScroll'))
+        lc.scrollBy(0, localStorage.getItem('lcPageScroll'));
+    });
+    lc.onscroll=function(){
+      localStorage.setItem('lcPageScroll', lc.scrollTop);
+    }
+    addNote.onclick=function(){
+      if(!note.value == ''){
+        lc_counter++;
+        color=colorsArr[getRndInteger(0,4)];
+        degrees=getRndInteger(-15,15);
+
+        localStorage.setItem('note' + lc_counter, `{"text":"${note.value.replace(/</g, '&lt;').replace(/>/g, '&gt;')}","color":"${color}","degrees":"${degrees}"}`);
+        localStorage.setItem('counter', lc_counter);
+        notesBlock.innerHTML=`<div class="note" style="background:${color};transform:rotate(${degrees}deg);"><span>#${lc_counter}</span>${note.value.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+        <button style="background:${colorsArr[getRndInteger(0,4)]};" ontouchstart="touch=true;" onmouseleave="app_message_2.style.left='-100vw';" onmouseover="if(!touch){appMessageMouseOver('If you click NOTE #${lc_counter} will be deleted!','#4285f4');}"
+        onclick="app_message_2.style.left='-100vw';this.parentElement.remove();localStorage.removeItem('note' + ${lc_counter});appMessage('Successfully deleted NOTE #${lc_counter}!','#34a853');">DELETE</button></div>` + notesBlock.innerHTML;
+        appMessage(`Successfylly added a STICKY NOTE #${lc_counter}!&#128578;`,'#34a853');
+      }
+      else
+        appMessage('Textarea cannot be empty!!!','#ea4335');
+    };
+    function setNotes(){
+      if(localStorage.getItem('counter')){
+        for(let i = 0; i < localStorage.getItem('counter'); i++){
+          if(localStorage.getItem('note' + (i+1))){
+            note_data = JSON.parse(localStorage.getItem('note' + (i+1)));
+            notesBlock.innerHTML=`<div class="note" style="background:${note_data.color};transform:rotate(${note_data.degrees}deg);"><span>#${i+1}</span>${note_data.text}
+            <button ontouchstart="touch=true;" onmouseleave="app_message_2.style.left='-100vw';" onmouseover="if(!touch){appMessageMouseOver('If you click NOTE #${i+1} will be deleted!','#4285f4');}"
+            onclick="app_message_2.style.left='-100vw';this.parentElement.remove();localStorage.removeItem('note' + (${i+1}));appMessage('Successfully deleted NOTE #${i+1}!','#34a853');" style="background:${colorsArr[getRndInteger(0,4)]};">DELETE</button></div>` + notesBlock.innerHTML;
+          }
+        }
+      }
+    }
+
+    function TimeOutf(){
+      TimeOut = setTimeout(function(){app_message.style.left='-100vw';},3000);
+    }
+    function appMessage(app_message_txt, background){
+      clearTimeout(TimeOut);
+      app_message.innerHTML=app_message_txt;
+      app_message.setAttribute('style',`background:${background};left:0;`);
+      TimeOutf();
+    }
+
+    function appMessageMouseOver(app_message_txt, background){
+      app_message_2.innerHTML=app_message_txt;
+      app_message_2.setAttribute('style',`background:${background};left:0;`);
+    }
+
+    function getRndInteger(min, max) {
+      return Math.floor(Math.random() * (max - min) ) + min;
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+          navigator.serviceWorker.register('sw.js').then(function (registration) {
+              // Registration was successful
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function (err) {
+              // registration failed :(
+              console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+  </body>
+</html>

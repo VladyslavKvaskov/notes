@@ -1,0 +1,29 @@
+{
+  "name": "Notes",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "short_name": "Notes",
+  "description": "This is a very simple PWA(Progressive Web App) for taking notes.",
+  "background_color": "#fff",
+  "theme_color": "#fff",
+  "categories": ["business"],
+  "icons": [
+    {
+      "src": "icons/notes-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/notes-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/notes-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+
+  ]
+}
