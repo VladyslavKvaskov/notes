@@ -24,17 +24,23 @@
     <meta name="msapplication-TileImage" href="icons/notes-192.png">
     <meta name="msapplication-TileColor" content="blueviolet">
     <style>
+      html{
+        background: #fff;
+      }
       #app_message{
         width:100%;
         z-index: 16000;
         position: fixed;
         bottom: 0;
         left: -100vw;
+        -webkit-transition: left 1s;
+        -o-transition: left 1s;
         transition: left 1s;
         color:#fff;
         font-family: sans-serif;
         padding: 30px;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
         font-size: 20px;
       }
       #app_message_2{
@@ -43,11 +49,14 @@
         position: fixed;
         bottom: 0;
         left: -100vw;
+        -webkit-transition: left 1s;
+        -o-transition: left 1s;
         transition: left 1s;
         color:#fff;
         font-family: sans-serif;
         padding: 30px;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
         font-size: 20px;
       }
       button{
@@ -84,9 +93,13 @@
       form{
         position:relative;
         margin:0 auto 100px auto;
-        box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+                box-sizing:border-box;
+        display:-webkit-box;
+        display:-ms-flexbox;
         display:flex;
-        flex-wrap:wrap;
+        -ms-flex-wrap:wrap;
+            flex-wrap:wrap;
 
         width: 23vw;
         height: 23vw;
@@ -95,11 +108,14 @@
       input{
         width: 100%;
         font-size:2vw;
-        box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+                box-sizing:border-box;
         background:#CAF4B9;
         cursor:pointer;
         padding:0.7vw;
         outline:none;
+        -webkit-transition:0.5s;
+        -o-transition:0.5s;
         transition:0.5s;
         font-weight:bold;
         border:none;
@@ -112,7 +128,8 @@
         width:100%;
         font-size:2vw;
         height: 20vw;
-        box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+                box-sizing:border-box;
         resize:none;
         margin:0;
         outline:none;
@@ -130,8 +147,8 @@
         font-weight:bold;
         padding:7px;
       }
-      #notesBlock{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;margin-bottom:300px;}
-      .note:hover{transform:rotate(0deg) !important;}
+      #notesBlock{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-bottom:300px;}
+      .note:hover{-webkit-transform:rotate(0deg) !important;-ms-transform:rotate(0deg) !important;transform:rotate(0deg) !important;}
       .note{
         font-size:2vw;
         background: #f0e68c;
@@ -139,9 +156,13 @@
         height: 23vw;
         padding: 1vw;
         display: block;
-        box-sizing:border-box;
-        box-shadow: 8px 8px 6px -6px #595959, -1px 0 3px -2px #595959;
+        -webkit-box-sizing:border-box;
+                box-sizing:border-box;
+        -webkit-box-shadow: 8px 8px 6px -6px #595959, -1px 0 3px -2px #595959;
+                box-shadow: 8px 8px 6px -6px #595959, -1px 0 3px -2px #595959;
         word-break:break-all;
+        -webkit-transition: 1s;
+        -o-transition: 1s;
         transition: 1s;
       }
       .note, textarea{
