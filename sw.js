@@ -2,7 +2,12 @@
 const cacheName='notes-cache-v1';
 const filesToCache = [
   '/',
-  'manifest.json'
+  'manifest.json',
+  'sw.js',
+  'icons/notes-64.png',
+  'icons/notes-192.png',
+  'icons/notes-512.png',
+  'icons/notes-64-ios.png'
 ];
 
 self.addEventListener('install',function(event){
