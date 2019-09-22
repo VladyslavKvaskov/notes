@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "xyz.appmaker.omtshv",
+      "sha256_cert_fingerprints": ["BC:49:35:A5:58:76:9E:DD:46:A3:ED:56:D9:A8:3F:F5:9A:4D:AA:B0:6C:24:B4:6F:12:26:42:F2:4F:5E:5B:1E"]
+    }
+  }
+]
